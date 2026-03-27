@@ -1,5 +1,8 @@
 #Nombrar Preflop
 
+jugadores = input("Cuantos jugadores sois en la mesa (contandote a ti) =")
+jugadores = int(jugadores)
+
 print("CORAZONES = C // PICAS = P // TREBOLES = T // DIAMANTES = D")
 
 print("Dime las cartas que te han tocado en el Preflop: ")
@@ -13,53 +16,68 @@ preFlop2 = preFlop2.strip().upper()
 
 
 def validacionDatosPreflop():
-    validacion = False
-
     if(len(preFlop1) < 2 or len(preFlop2) < 2):
         print("Tamaño dado NO VALIDO")
-        validacion =False
+        return False
 
     if(preFlop1 == preFlop2):
         print("Has dado las mismas cartas")
-        validacion =False
+        return False
     
     if(preFlop1[1] not in ["D","C","P","T"]):
-        print("Has dado un valor de carta NO VALIDO")
-        validacion =False
+        print("Palo de carta 1 NO VALIDO")
+        return False
 
     if(preFlop2[1] not in ["D","C","P","T"]):
-        print("Has dado un valor de carta NO VALIDO")
-        validacion =False
+        print("Palo de carta 2 NO VALIDO")
+        return False
 
-    if (preFlop1[0] != "A" and preFlop1[0] != "2" and preFlop1[0] != "3" and preFlop1[0] != "4"
-        and preFlop1[0] != "5" and preFlop1[0] != "6" and preFlop1[0] != "7" and preFlop1[0] != "8"
-        and preFlop1[0] != "9" and preFlop1[0] != "J" and preFlop1[0] != "K" and preFlop1[0] != "Q"):
-        
-        print("Has dado un valor de carta NO VALIDO")
-        validacion =False
+    valores_validos = ["A","2","3","4","5","6","7","8","9","J","Q","K"]
+
+    if(preFlop1[0] not in valores_validos):
+        print("Valor de carta 1 NO VALIDO")
+        return False
     
-    if (preFlop2[0] != "A" and preFlop2[0] != "2" and preFlop2[0] != "3" and preFlop2[0] != "4"
-        and preFlop2[0] != "5" and preFlop2[0] != "6" and preFlop2[0] != "7" and preFlop2[0] != "8"
-        and preFlop2[0] != "9" and preFlop2[0] != "J" and preFlop2[0] != "K" and preFlop2[0] != "Q"):
+    if(preFlop2[0] not in valores_validos):
+        print("Valor de carta 2 NO VALIDO")
+        return False
 
-        print("Has dado un valor de carta NO VALIDO")
-        validacion =False
-
-
-    else:
-        validacion = True
-
-
-    return validacion
+    return True
 
     
-while(validacionDatosPreflop == False):
+while(not validacionDatosPreflop()):
     preFlop1 = input("1º CARTA: ")
     preFlop1 = preFlop1.strip().upper()
 
 
     preFlop2 = input("2ª CARTA: ")
     preFlop2 = preFlop2.strip().upper()
+
+print(preFlop1, preFlop2)
+
+def resivarJugadoresQueCambia():
+    print("Han abandonado la mesa alguien? (SI S / NO N)")
+    eleccionJugadores = input("Escribalo acontinuacion= ")
+    eleccionJugadores = eleccionJugadores.upper().strip()
+
+        
+    if(eleccionJugadores == "S" or eleccionJugadores == "SI"):
+        numJugadoresAbandonan = input("Cuantos jugadores han abandonado = ")
+        numJugadoresAbandonan = int(numJugadoresAbandonan)
+
+        jugadores = jugadores - numJugadoresAbandonan
+            
+
+    elif(eleccionJugadores == "N" or eleccionJugadores == "NO"):
+        print("oK continuamos entonces")
+
+    return jugadores
+            
+
+resivarJugadoresQueCambia()
+
+
+
 
 
 
